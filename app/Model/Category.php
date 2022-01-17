@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
-class Category
+use Illuminate\Database\Eloquent\Model;
+
+class Category extends Model
 {
     protected $table = 'dle_category';
 }
