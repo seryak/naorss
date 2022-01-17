@@ -12,7 +12,7 @@ use LaravelZero\Framework\Commands\Command;
 class GenerateRSSCommand extends Command
 {
     protected $signature = 'generate:rss';
-    protected $description = 'Command description';
+    protected $description = 'Генерирует rss ленту для Яндекс';
 
     public function handle()
     {
