@@ -13,4 +13,9 @@ class Post extends Model
         return $this->hasOne(Category::class, 'id', 'category');
     }
 
+    public function getUrlAttribute()
+    {
+        return 'https://nao24.ru/'.$this->categoryModel->name.'/'.$this->id.'-'.$this->alt_name.'.html';
+    }
+
 }
