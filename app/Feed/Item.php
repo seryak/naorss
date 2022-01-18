@@ -2,11 +2,11 @@
 
 namespace App\Feed;
 
+use League\Plates\Engine;
+
 class Item
 {
-    public $attributes = [
-        'title', 'link', 'description', 'category', 'pubDate', 'yandex:full-text'
-    ];
+    public $attributes = [];
 
     public function __construct(ItemDTO $dto)
     {
@@ -20,14 +20,7 @@ class Item
 
     public function __toString()
     {
-        $attributesText = null;
-        foreach ($this->attributes as $key => $attribute) {
-            $attributesText = $attributesText.'<'.$key.'>'.$attribute.'</'.$key.'>'.PHP_EOL;
-        }
-        return <<<EOT
-<item>
-    '.$attributesText.'
-</item>
-EOT;
+        $templates = new Engine(__DIR__.'/../templates');
+        return $templates->render('item-rss', ['item' => $this]);
     }
 }

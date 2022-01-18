@@ -2,9 +2,12 @@
 
 namespace App\Commands;
 
+use App\Feed\FeedGenerator;
 use App\Feed\ItemDTO;
+use App\Feed\Item;
 use App\Model\Category;
 use App\Model\Post;
+use League\Plates\Engine;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\DB;
 use LaravelZero\Framework\Commands\Command;
@@ -16,6 +19,8 @@ class GenerateRSSCommand extends Command
 
     public function handle()
     {
+
+
 //        $post = Post::find(26731);
 //        $post->options;
 //        dd($post->full_text);
@@ -25,11 +30,13 @@ class GenerateRSSCommand extends Command
         $postCollection = Post::orderByDesc('date')->take(10)->get();
         $feedItems = [];
         foreach ($postCollection as $post) {
-            $feedItems[] = $post->getDTO();
+            $itemFeed = new Item($post->getDTO());
+            $feedItems[] = $itemFeed;
         }
-        dd($feedItems);
-        dd();
-        dd($dto);
+        $feed = new FeedGenerator($feedItems);
+        $feed->generate();
+
+        dd($feed->rssContent);
         echo DB::table('dle_post')->count();
     }
 
