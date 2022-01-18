@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Feed\ItemDTO;
 use App\Helpers\StringHelper;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,7 @@ use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
  * @property $full_story
  * @property array $options
  * @property mixed $xfields
+ * @method static orderByDesc(string $string)
  */
 class Post extends Model
 {
@@ -70,6 +72,17 @@ class Post extends Model
     public function getTextWithoutFotoAttribute(): string
     {
         return StringHelper::cutBetween($this->full_story, '<b>', '</b>');
+    }
+
+    /**
+     * Создает DTO
+     * @return ItemDTO
+     */
+    public function getDTO(): ItemDTO
+    {
+        $dto = new ItemDTO;
+        $dto->createFromPost($this);
+        return $dto;
     }
 
 }
