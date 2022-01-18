@@ -19,15 +19,11 @@ class GenerateRSSCommand extends Command
 
     public function handle()
     {
-
-
 //        $post = Post::find(26731);
-//        $post->options;
-//        dd($post->full_text);
-//        $dto = new ItemDTO();
-//        $dto->createFromPost($post);
-//        dd($dto);
-        $postCollection = Post::orderByDesc('date')->take(10)->get();
+////        $post = Post::find(29728);
+//        dd($post->getDTO());
+
+        $postCollection = Post::orderByDesc('date')->take(10000)->get();
         $feedItems = [];
         foreach ($postCollection as $post) {
             $itemFeed = new Item($post->getDTO());
@@ -35,9 +31,6 @@ class GenerateRSSCommand extends Command
         }
         $feed = new FeedGenerator($feedItems);
         $feed->generate();
-
-        dd($feed->rssContent);
-        echo DB::table('dle_post')->count();
     }
 
     /**

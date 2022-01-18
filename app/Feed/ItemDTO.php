@@ -15,7 +15,7 @@ class ItemDTO extends DataTransferObject
     public $category;
     public $pubDate;
     public $fullText;
-    public $officialComment = null;
+    public OfficialCommentDTO|null $officialComment = null;
 
     public function createFromPost(Post $post)
     {
