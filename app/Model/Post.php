@@ -38,7 +38,7 @@ class Post extends Model
      */
     public function getUrlAttribute(): string
     {
-        return 'https://nao24.ru/'.$this->categoryModel->name.'/'.$this->id.'-'.$this->alt_name.'.html';
+        return 'https://nao24.ru/'.$this->categoryModel->alt_name.'/'.$this->id.'-'.$this->alt_name.'.html';
     }
 
     /**
