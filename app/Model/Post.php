@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Feed\ItemDTO;
+use App\Feed\OfficialCommentDTO;
 use App\Helpers\StringHelper;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -82,6 +83,11 @@ class Post extends Model
     {
         $dto = new ItemDTO;
         $dto->createFromPost($this);
+        if ( isset($this->options['comment_url']) && isset($this->options['comment_name']) && isset($this->options['comment_header']) && isset($this->options['comment_binds'])) {
+            $commntDto = new OfficialCommentDTO;
+            $commntDto->createFromPost($this);
+            $dto->officialComment = $commntDto;
+        }
         return $dto;
     }
 
